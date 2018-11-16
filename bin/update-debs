@@ -4,7 +4,7 @@ DIR=$(dirname `readlink -f $0`)
 TERMUX_BLD_DIR="$DIR/../../termux-packages"
 DEBS_DIR="$DIR/../debs"
 ARCH=arm
-LATEST_DEB="swi-prolog_latest_arm.deb"
+DOWNLOADABLE_DEB="swi-prolog_latest_arm.deb"
 
 if [ x"$1" == x"-f" ]; then
    FORCE="-f"
@@ -21,14 +21,16 @@ fi
                         ######################
                         #   Build new debs   #
                         ######################
-BUILD_CMD="./build-package.sh -a $ARCH $FORCE swi-prolog"
-"$TERMUX_BLD_DIR/scripts/run-docker.sh"  "$BUILD_CMD"
+BUILD_CMD="env SWIPL_SRC=${SWIPL_SRC=\"\"} ./build-package.sh -a $ARCH $FORCE swi-prolog"
+echo "$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
+"$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
 
 
                      ##############################
                      #  Move debs to release repo #
                      ##############################
-cp "$TERMUX_BLD_DIR/debs/swi-prolog_"*"_arm.deb" "$DEBS_DIR"
-cd "$DEBS_DIR"
-rm "$LATEST_DEB"
-cp -f "./swi-prolog_7"*"_arm.deb" ./"$LATEST_DEB"
+cp "$TERMUX_BLD_DIR/debs/swi-prolog_"*"_arm.deb" "$DEBS_DIR"     && \
+   cd "$DEBS_DIR"                                                && \
+   LAST_BUILT__DEB=`ls -rt1 ./swi-prolog*|tail -1`               && \
+   rm -f "$DOWNLOADABLE_DEB"                                           && \
+   cp -f "$LAST_BUILT__DEB" ./"$DOWNLOADABLE_DEB"
