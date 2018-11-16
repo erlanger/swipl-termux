@@ -1,4 +1,12 @@
 #!/usr/bin/sh
 
-mkdir deb
-wget -P deb  
+SWIPL_DEB="swi-prolog_latest_arm.deb"
+TMP="deb.$$"
+
+#Download package
+mkdir "$TMP" && \
+   wget -P deb https://raw.githubusercontent.com/erlanger/swipl-termux/master/debs/$SWIPL_DEB
+
+#Install package
+dpkg -i deb/$SWIPL_DEB && rm -rf "$TMP"
+
