@@ -43,7 +43,7 @@ The docker file will be downloaded automatically. SWI-Prolog library dependencie
 
 To build the deb files yourself, do the following:
 ```sh
-git clone https://github.com/erlanger/termux-packages
+git clone -b swi-prolog https://github.com/erlanger/termux-packages
 cd termux-packages
 ./scripts/run-docker.sh ./build-package.sh -a arm -f swi-prolog
 ```
