@@ -7,7 +7,8 @@ This repository contains pre-built packages for [SWI-Prolog](http://swi-prolog.o
 1. Install [termux](https://termux.com/) on your android device
 2. Start termux, and type the following in the terminal:
 ```sh
-wget -O - https://raw.githubusercontent.com/erlanger/swipl-termux/master/install | sh
+pkg install curl
+curl  https://raw.githubusercontent.com/erlanger/swipl-termux/master/install -sSf | sh
 ```
 3. Done! :tada:
 4. Now run it, typing this in the termux terminal:

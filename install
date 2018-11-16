@@ -8,5 +8,5 @@ mkdir "$TMP" && \
    wget -P deb https://raw.githubusercontent.com/erlanger/swipl-termux/master/debs/$SWIPL_DEB
 
 #Install package
-dpkg -i deb/$SWIPL_DEB && rm -rf "$TMP"
+dpkg -i "$TMP"/$SWIPL_DEB && rm -rf "$TMP"
 
