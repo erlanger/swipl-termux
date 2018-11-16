@@ -37,7 +37,7 @@ The [install script.](https://raw.githubusercontent.com/erlanger/swipl-termux/ma
 
 SWI-Prolog for android is built with the docker file used by `termux` to build packages.
 
-The erlanger termux-packages repository contains the patches and scripts to build the SWI-Prolog `deb` file for Android.
+The [termux-packages repository](https://github.com/erlanger/termux-packages/tree/swi-prolog/packages/swi-prolog) contains the patches and scripts to build the SWI-Prolog `deb` file for Android.
 
 The docker file will be downloaded automatically. SWI-Prolog library dependencies  will also be downloaded automatically into the docker container.
 
