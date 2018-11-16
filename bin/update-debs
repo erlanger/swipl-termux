@@ -4,6 +4,7 @@ DIR=$(dirname `readlink -f $0`)
 TERMUX_BLD_DIR="$DIR/../../termux-packages"
 DEBS_DIR="$DIR/../debs"
 ARCH=arm
+LATEST_DEB="swi-prolog_latest_arm.deb"
 
 if [ x"$1" == x"-f" ]; then
    FORCE="-f"
@@ -29,4 +30,5 @@ BUILD_CMD="./build-package.sh -a $ARCH $FORCE swi-prolog"
                      ##############################
 cp "$TERMUX_BLD_DIR/debs/swi-prolog_"*"_arm.deb" "$DEBS_DIR"
 cd "$DEBS_DIR"
-ln -sf "./swi-prolog_7"*"_arm.deb" ./swi-prolog_latest_arm.deb
+rm "$LATEST_DEB"
+cp -f "./swi-prolog_7"*"_arm.deb" ./"$LATEST_DEB"
