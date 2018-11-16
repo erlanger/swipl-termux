@@ -51,4 +51,31 @@ You should now have the  `.deb` files in the `debs` directory.
 
  :bulb: Future
 ----------------
-Hopefully this repository will be deleted when the  build of SWI-Prolog for Android is officially added to the termux package repositories. Bear in mind it is in testing right now (and there are a few issues), but hopefully things will move quickly.
+
+Hopefully this repository will be deleted when the  build of
+SWI-Prolog for Android is officially added to the termux package
+repositories. Bear in mind I am just in testing right now (and there
+are a few issues), but hopefully things will move quickly.
+
+
+:label: TODO
+-----------------
+Misc
+- [x] Make script to update LD_PRELOAD and TMP environment variable
+- [x] Write some documentation (README)
+- [x] Make a release repository and one with the termux build patches
+- [ ] Cleanup the termux build patches to maybe include in SWI-Prolog proper
+
+Tests
+- [ ] Test individual packages
+- [ ] NaN test is failing (not very important)
+- [ ] `saved_state` tests are failing
+- [x] Fix file system and shared library loading problems
+
+
+Package tests
+- [ ] http package
+
+Java-prolog interface (jpl)
+- [x]  Find JNI_GetCreatedVMs shared library
+- [ ]  VM creation is aborting on start and exits prolog abruptly
