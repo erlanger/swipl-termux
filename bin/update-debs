@@ -29,8 +29,8 @@ echo "$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
                      ##############################
                      #  Move debs to release repo #
                      ##############################
-cp "$TERMUX_BLD_DIR/debs/swi-prolog_"*"_arm.deb" "$DEBS_DIR"     && \
-   cd "$DEBS_DIR"                                                && \
-   LAST_BUILT__DEB=`ls -rt1 ./swi-prolog*|tail -1`               && \
-   rm -f "$DOWNLOADABLE_DEB"                                           && \
+LAST_BUILT__DEB=`ls -rt1 ${TERMUX_BLD_DIR}/debs/swi-prolog*|tail -1`    && \
+   cp "$LAST_BUILT__DEB" "$DEBS_DIR"                                    && \
+   cd "$DEBS_DIR"                                                       && \
+   rm -f "$DOWNLOADABLE_DEB"                                            && \
    cp -f "$LAST_BUILT__DEB" ./"$DOWNLOADABLE_DEB"
