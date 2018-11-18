@@ -65,7 +65,8 @@ Misc
 - [x] Make script to update LD_PRELOAD and TMP environment variable
 - [x] Write some documentation (README)
 - [x] Make a release repository and one with the termux build patches
-- [ ] libuuid header not found
+- [x] ~libuuid header not found~
+- [ ] Port ossp-uuid to Android/termux
 - [ ] Cleanup the termux build patches to maybe include in SWI-Prolog proper
 
 Tests
