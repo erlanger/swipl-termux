@@ -4,7 +4,7 @@ DIR=$(dirname `readlink -f $0`)
 TERMUX_BLD_DIR="$DIR/../../termux-packages"
 DEBS_DIR="$DIR/../debs"
 ARCH=arm
-if [ x${SWIPL_SRC=} = x"master" ]  || \       #use github master
+if [ x${SWIPL_SRC=} = x"master" ]  || \
    [ x${SWIPL_SRC=} = x"local" ]; then        #use local files
    DOWNLOADABLE_DEB="swi-prolog_unstable_arm.deb"
 else
