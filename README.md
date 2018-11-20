@@ -59,6 +59,13 @@ repositories. Bear in mind I am just in testing right now (and there
 are a few issues), but hopefully things will move quickly.
 
 
+Working Packages
+----------------
+The following packages pass all tests:
+   rdf, chr, http, pcre, pengines (w/o uuid), protobufs, sgml, yaml, zlib
+
+But some of them --while passing all tests-- throw the redefining module exception.
+
 :label: TODO
 -----------------
 
@@ -68,9 +75,14 @@ Good news! All core tests are working except:
 - [ ] some `saved_state` tests are failing, but simple saved states are
       working.
 
-**Package tests**
-- [ ] Test individual packages
-- [ ] http package
+**Unsupported packages**
+bdb, odbc, space
+
+**Failing packages**
+- [ ] jpl
+- [ ] inclpr
+- [ ] ssl
+
 
 **Misc**
 - [ ] Port ossp-uuid to Android/termux
