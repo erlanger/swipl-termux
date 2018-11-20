@@ -79,9 +79,9 @@ Good news! All core tests are working except:
 bdb, odbc, space
 
 **Failing packages**
-- [ ] jpl
-- [ ] inclpr
-- [ ] ssl
+- [ ] `jpl`
+- [ ] `inclpr`
+- [ ] `ssl`
 
 
 **Misc**
