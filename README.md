@@ -62,7 +62,7 @@ are a few issues), but hopefully things will move quickly.
 Working Packages
 ----------------
 The following packages pass all tests:
-   'rdf', 'chr', 'http', 'pcre', 'pengines' (w/o uuid), 'protobufs', 'sgml', 'yaml', 'zlib'
+   `rdf`, `chr`, `http`, `pcre`, `pengines` (w/o uuid), `protobufs`, `sgml`, `yaml`, `zlib`
 
 But some of them --while passing all tests-- throw the redefining module exception.
 
