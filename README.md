@@ -87,8 +87,8 @@ bdb, odbc, space
 **Misc**
 - [ ] Port ossp-uuid to Android/termux
 
-Done
-----
+:checkered_flag: Done
+---------------------
 **Shared library interoperation**
 - [x] Fix file system and shared library loading problems
 
