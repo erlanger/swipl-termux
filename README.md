@@ -87,10 +87,6 @@ bdb, odbc, space
 **Misc**
 - [ ] Port ossp-uuid to Android/termux
 
-**Java-prolog interface (jpl)**
-- [ ]  VM creation is aborting on start and exits prolog abruptly
-
-
 Done
 ----
 **Shared library interoperation**
