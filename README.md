@@ -61,24 +61,37 @@ are a few issues), but hopefully things will move quickly.
 
 :label: TODO
 -----------------
-Misc
+
+**Core tests**
+Good news! All core tests are working except:
+- [ ] NaN test (not very important)
+- [ ] some `saved_state` tests are failing, but simple saved states are
+      working.
+
+**Package tests**
+- [ ] Test individual packages
+- [ ] http package
+
+**Misc**
+- [ ] Port ossp-uuid to Android/termux
+
+**Java-prolog interface (jpl)**
+- [ ]  VM creation is aborting on start and exits prolog abruptly
+
+
+Done
+----
+**Shared library interoperation**
+- [x] Fix file system and shared library loading problems
+
+Fixed by using `LD_PRELOAD=libswipl.so:libm.:so`
+
+**Java-prolog interface (jpl)**
+- [x]  Find JNI_GetCreatedVMs shared library
+
+**Misc**
 - [x] Make script to update LD_PRELOAD and TMP environment variable
 - [x] Write some documentation (README)
 - [x] Make a release repository and one with the termux build patches
 - [x] ~libuuid header not found~
-- [ ] Port ossp-uuid to Android/termux
-- [ ] Cleanup the termux build patches to maybe include in SWI-Prolog proper
-
-Tests
-- [ ] Test individual packages
-- [ ] NaN test is failing (not very important)
-- [ ] `saved_state` tests are failing
-- [x] Fix file system and shared library loading problems
-
-
-Package tests
-- [ ] http package
-
-Java-prolog interface (jpl)
-- [x]  Find JNI_GetCreatedVMs shared library
-- [ ]  VM creation is aborting on start and exits prolog abruptly
+- [x] Cleanup the termux build patches to maybe include in SWI-Prolog proper
