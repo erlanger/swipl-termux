@@ -10,15 +10,15 @@ download_deb() {
       curl https://raw.githubusercontent.com/erlanger/swipl-termux/master/debs/$SWIPL_DEB -s -o "$TMP/$1"
 }
 
-install_deb() {
+install_debs() {
 cd "$TMP" && \
-   apt --fix-broken -y install "./$1"
+   apt --fix-broken -y install "$@"
 }
 
 #Download swipl and oosp-uuid packages
 download_deb $SWIPL_DEB && download_deb $UUID_DEB
 
 #Install package
-install_deb $SWIPL_DEB && \
+install_debs $UUID_DEB $SWIPL_DEB && \
    rm -rf "$TMP"
 
