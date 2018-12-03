@@ -1,14 +1,24 @@
 #!/usr/bin/sh
 
-SWIPL_DEB="swi-prolog_latest_arm.deb"
+ARCH=arm
+SWIPL_DEB="swi-prolog_latest_${ARCH}.deb"
+UUID_DEB="ossp-uuid_1.6.2_${ARCH}.deb"
 TMP=`pwd`/deb.$$
 
-#Download package
-mkdir "$TMP" && \
-   curl https://raw.githubusercontent.com/erlanger/swipl-termux/master/debs/$SWIPL_DEB -s -o "$TMP/$SWIPL_DEB"
+download_deb() {
+   mkdir -p "$TMP" && \
+      curl https://raw.githubusercontent.com/erlanger/swipl-termux/master/debs/$SWIPL_DEB -s -o "$TMP/$1"
+}
+
+install_deb() {
+cd "$TMP" && \
+   apt --fix-broken -y install "./$1"
+}
+
+#Download swipl and oosp-uuid packages
+download_deb $SWIPL_DEB && download_deb $UUID_DEB
 
 #Install package
-cd "$TMP" && \
-   apt --fix-broken -y install "./$SWIPL_DEB" &&  \
+install_deb $UUID_DEB && install_deb $SWIPL_DEB && \
    rm -rf "$TMP"
 
