@@ -12,7 +12,7 @@ download_deb() {
 
 install_deb() {
 cd "$TMP" && \
-   apt --fix-broken -y install "$1"
+   apt --fix-broken -y install "./$1"
 }
 
 #Download swipl and oosp-uuid packages
@@ -20,6 +20,7 @@ download_deb $SWIPL_DEB && download_deb $UUID_DEB
 
 #Install package
 install_deb $UUID_DEB     && \
-   install_deb $SWIPL_DEB && \
-   rm -rf "$TMP"
+   install_deb $SWIPL_DEB
+
+rm -rf "$TMP"
 
