@@ -7,7 +7,7 @@ TMP=`pwd`/deb.$$
 
 download_deb() {
    mkdir -p "$TMP" && \
-      curl https://raw.githubusercontent.com/erlanger/swipl-termux/master/debs/$SWIPL_DEB -s -o "$TMP/$1"
+      curl https://raw.githubusercontent.com/erlanger/swipl-termux/master/debs/$1 -s -o "$TMP/$1"
 }
 
 install_deb() {
