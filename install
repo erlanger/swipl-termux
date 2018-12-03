@@ -19,6 +19,6 @@ cd "$TMP" && \
 download_deb $SWIPL_DEB && download_deb $UUID_DEB
 
 #Install package
-install_deb $UUID_DEB && install_deb $SWIPL_DEB && \
+install_deb $SWIPL_DEB && \
    rm -rf "$TMP"
 
