@@ -5,22 +5,76 @@ set -u
 DIR=$(dirname `readlink -f $0`)
 TERMUX_BLD_DIR="$DIR/../../termux-packages"
 DEBS_DIR="$DIR/../debs"
-ARCH=all
 HOST_BUILD="/home/builder/.termux-build/swi-prolog/host-build"
 
-if [ x"$1" == x"-u" ]; then
+#Default flags/opts
+BUILD=yes
+ARCH=all
+STABLE=yes
+FORCE="-f"
+
+                        ########################
+                        #   Helper functions   #
+                        ########################
+link_to_release() {
+   ln -sf release-build.sh ./build.sh
+}
+
+link_to_unstable() {
+   ln -sf unstable-build.sh ./build.sh
+}
+                        ########################
+                        #   Command line opts  #
+                        ########################
+
+while getopts :a:nfurs option
+do
+   case "$option" in
+      u)
+         STABLE=no
+         ;;
+      s|r)
+         STABLE=yes
+         ;;
+      a)
+         case $OPTARG in
+            arm|aarch64|i686|x86_64|all)
+               ARCH=$OPTARG
+               ;;
+            *)
+               echo "Architecture can only be arm, aarch64, i686, x86_64 or all (default)"
+               exit 2
+               ;;
+         esac
+         ;;
+      f)
+         FORCE="-f"
+         ;;
+      n) # Dry run
+         BUILD=no
+         echo "--> Not building, just copying debs"
+         ;;
+   esac
+done
+
+                        ######################
+                        #   Setup stable or  #
+                        #   unstable build   #
+                        ######################
+
+if [[ x"$STABLE" = x"no" ]]; then
    FORCE="-f"
    (  cd "$TERMUX_BLD_DIR/packages/swi-prolog" && \
-      ln -sf unstable-build.sh ./build.sh
+      link_to_unstable
    )
    SWIPL_SRC=local
    BANNER="
                             ************************
                                      Unstable
                             ************************"
-else
+elif [ x"$STABLE" = x"yes" ]; then
    (  cd "$TERMUX_BLD_DIR/packages/swi-prolog" && \
-      ln -sf release-build.sh ./build.sh
+      link_to_release
    )
    BANNER="
                             ************************
@@ -30,24 +84,24 @@ fi
 
 echo "$BANNER"
 
-if [ x"$1" == x"-f" ]; then
-   FORCE="-f"
-fi
-
 if [ ! -d "$TERMUX_BLD_DIR" ]; then
    echo "$TERMUX_BLD_DIR not found."
    echo
    echo "termux-packages repository doesn\'t exist, please run:"
    echo "   git clone https://github.com/erlanger/termux-packages"
    echo "in the parent directory of this repository."
+   exit 3
 fi
    
                         ######################
                         #   Build new debs   #
                         ######################
 BUILD_CMD="env SWIPL_SRC=${SWIPL_SRC=\"\"} ./build-package.sh -a $ARCH $FORCE swi-prolog"
-echo "$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
-#"$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
+
+if [[ x"$BUILD" = x"yes" ]]; then
+   echo "$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
+   "$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
+fi
 
 
                      ##############################
