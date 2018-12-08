@@ -1,9 +1,12 @@
-#!/bin/sh
+#!/bin/bash
+
+set -u
 
 DIR=$(dirname `readlink -f $0`)
 TERMUX_BLD_DIR="$DIR/../../termux-packages"
 DEBS_DIR="$DIR/../debs"
-ARCH=arm
+ARCH=all
+HOST_BUILD="/home/builder/.termux-build/swi-prolog/host-build"
 
 if [ x"$1" == x"-u" ]; then
    FORCE="-f"
@@ -31,14 +34,6 @@ if [ x"$1" == x"-f" ]; then
    FORCE="-f"
 fi
 
-if [ x${SWIPL_SRC=} = x"master" ]  || \
-   [ x${SWIPL_SRC=} = x"local" ]; then        #use local files
-   DOWNLOADABLE_DEB="swi-prolog_unstable_arm.deb"
-else
-   DOWNLOADABLE_DEB="swi-prolog_latest_arm.deb"
-fi
-
-
 if [ ! -d "$TERMUX_BLD_DIR" ]; then
    echo "$TERMUX_BLD_DIR not found."
    echo
@@ -52,14 +47,41 @@ fi
                         ######################
 BUILD_CMD="env SWIPL_SRC=${SWIPL_SRC=\"\"} ./build-package.sh -a $ARCH $FORCE swi-prolog"
 echo "$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
-"$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
+#"$TERMUX_BLD_DIR/scripts/run-docker.sh"  $BUILD_CMD
 
 
                      ##############################
                      #  Move debs to release repo #
                      ##############################
-LAST_BUILT__DEB=`ls -rt1 ${TERMUX_BLD_DIR}/debs/swi-prolog*|tail -1`    && \
-   cp "$LAST_BUILT__DEB" "$DEBS_DIR"                                    && \
-   cd "$DEBS_DIR"                                                       && \
-   rm -f "$DOWNLOADABLE_DEB"                                            && \
-   cp -f "$LAST_BUILT__DEB" ./"$DOWNLOADABLE_DEB"
+LAST_BUILT_DEBS=$(ls -rt1 ${TERMUX_BLD_DIR}/debs/swi-prolog*|tail -4)
+
+# Copy built debs to swipl-termux debs dir
+if [ -n "$LAST_BUILT_DEBS" ]; then
+   for deb in $LAST_BUILT_DEBS; do
+      cp "$deb" "$DEBS_DIR"
+   done
+else
+   echo "Error: No debs built!"
+   exit 1
+fi
+
+# Copy files to swi-prolog_latest_<arch>.deb or ...unstable_<arch>.deb
+if [ x${SWIPL_SRC=} = x"master" ]  || \
+   [ x${SWIPL_SRC=} = x"local" ]; then        #use local files
+   DOWNLOADABLE_PREFIX="swi-prolog_unstable"
+else
+   DOWNLOADABLE_PREFIX="swi-prolog_latest"
+fi
+
+cd "$DEBS_DIR"
+for deb in $LAST_BUILT_DEBS; do
+   if [[ $deb == *aarch64.deb ]]; then
+      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_aarch64.deb"
+   elif [[ $deb == *arm.deb ]]; then
+      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_arm.deb"
+   elif [[ $deb == *i686.deb ]]; then
+      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_i686.deb"
+   elif [[ $deb == *x86_64.deb ]]; then
+      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_x86_64.deb"
+   fi
+done
