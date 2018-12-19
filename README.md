@@ -1,3 +1,8 @@
+# Update!
+
+Version 7.7.25 available now for all termux architectures:
+`arm`, `aarch64`, `i686` and `x86_64`.
+
 # SWI-Prolog on Android
 
 This repository contains pre-built packages for [SWI-Prolog](http://swi-prolog.org/) on [termux](https://termux.com/). When SWI-Prolog is officially added to termux we will delete this repository.
@@ -14,7 +19,7 @@ curl  https://raw.githubusercontent.com/erlanger/swipl-termux/master/install -sS
 4. Now run it, typing this in the termux terminal:
 ```
 $ swipl
-Welcome to SWI-Prolog (threaded, 32 bits, version 7.7.21)
+Welcome to SWI-Prolog (threaded, 32 bits, version 7.7.25)
 SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
 Please run ?- license. for legal details.
 
@@ -45,8 +50,10 @@ To build the deb files yourself, do the following:
 ```sh
 git clone -b swi-prolog https://github.com/erlanger/termux-packages
 cd termux-packages
-./scripts/run-docker.sh ./build-package.sh -a arm -f swi-prolog
+./scripts/run-docker.sh ./build-package.sh -a <arch> -f swi-prolog
 ```
+
+Where `<arch>` is one of `arm`, `aarch64`, `i686` and `x86_64`.
 
 You should now have the  `.deb` files in the `debs` directory.
 
