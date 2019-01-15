@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo this script is obsolete, just build manually as explained in the README.
+exit 1
 set -u
 
 DIR=$(dirname `readlink -f $0`)
@@ -23,11 +25,25 @@ link_to_release() {
 link_to_unstable() {
    ln -sf unstable-build.sh ./build.sh
 }
+
+usage() {
+   cat <<EOD
+   Build swi-prolog deb files for termux.
+
+   Usage: update-debs -a <arch> -[nfurs]
+      -n    dry run, dont' build
+      -u    unstable build from local sources
+      -s    stable build from last released version (also -r)
+      -f    force build even if deb was already built
+      -h    show this help
+EOD
+exit 4
+}
                         ########################
                         #   Command line opts  #
                         ########################
 
-while getopts :a:nfurs option
+while getopts :a:hnfurs option
 do
    case "$option" in
       u)
@@ -52,7 +68,9 @@ do
          ;;
       n) # Dry run
          BUILD=no
-         echo "--> Not building, just copying debs"
+         ;;
+      h)
+         usage
          ;;
    esac
 done
@@ -71,6 +89,7 @@ if [[ x"$STABLE" = x"no" ]]; then
    BANNER="
                             ************************
                                      Unstable
+                                     Arch: $ARCH
                             ************************"
 elif [ x"$STABLE" = x"yes" ]; then
    (  cd "$TERMUX_BLD_DIR/packages/swi-prolog" && \
@@ -79,10 +98,15 @@ elif [ x"$STABLE" = x"yes" ]; then
    BANNER="
                             ************************
                                      Release
+                                     Arch: $ARCH
                             ************************"
 fi
 
 echo "$BANNER"
+
+if [[ x"$BUILD" != x"yes" ]]; then
+   echo "--> Not building, just copying debs"
+fi
 
 if [ ! -d "$TERMUX_BLD_DIR" ]; then
    echo "$TERMUX_BLD_DIR not found."
@@ -112,7 +136,7 @@ LAST_BUILT_DEBS=$(ls -rt1 ${TERMUX_BLD_DIR}/debs/swi-prolog*|tail -4)
 # Copy built debs to swipl-termux debs dir
 if [ -n "$LAST_BUILT_DEBS" ]; then
    for deb in $LAST_BUILT_DEBS; do
-      cp "$deb" "$DEBS_DIR"
+      cp -a "$deb" "$DEBS_DIR"
    done
 else
    echo "Error: No debs built!"
