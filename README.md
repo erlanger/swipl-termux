@@ -1,6 +1,7 @@
 # Update!
 
-Version 7.7.25 available now for all termux architectures:
+The sparkling new major release version 8.1.0
+is available now for all termux architectures:
 `arm`, `aarch64`, `i686` and `x86_64`.
 
 # SWI-Prolog on Android
