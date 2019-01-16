@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo this script is obsolete, just build manually as explained in the README.
-exit 1
 set -u
 
 DIR=$(dirname `readlink -f $0`)
@@ -131,6 +129,7 @@ fi
                      ##############################
                      #  Move debs to release repo #
                      ##############################
+# 4 because we have four architectures
 LAST_BUILT_DEBS=$(ls -rt1 ${TERMUX_BLD_DIR}/debs/swi-prolog*|tail -4)
 
 # Copy built debs to swipl-termux debs dir
@@ -144,22 +143,22 @@ else
 fi
 
 # Copy files to swi-prolog_latest_<arch>.deb or ...unstable_<arch>.deb
-if [ x${SWIPL_SRC=} = x"master" ]  || \
-   [ x${SWIPL_SRC=} = x"local" ]; then        #use local files
-   DOWNLOADABLE_PREFIX="swi-prolog_unstable"
-else
-   DOWNLOADABLE_PREFIX="swi-prolog_latest"
-fi
+# if [ x${SWIPL_SRC=} = x"master" ]  || \
+#    [ x${SWIPL_SRC=} = x"local" ]; then        #use local files
+#    DOWNLOADABLE_PREFIX="swi-prolog_unstable"
+# else
+#    DOWNLOADABLE_PREFIX="swi-prolog_latest"
+# fi
 
-cd "$DEBS_DIR"
-for deb in $LAST_BUILT_DEBS; do
-   if [[ $deb == *aarch64.deb ]]; then
-      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_aarch64.deb"
-   elif [[ $deb == *arm.deb ]]; then
-      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_arm.deb"
-   elif [[ $deb == *i686.deb ]]; then
-      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_i686.deb"
-   elif [[ $deb == *x86_64.deb ]]; then
-      cp -f "$deb" "${DOWNLOADABLE_PREFIX}_x86_64.deb"
-   fi
-done
+# cd "$DEBS_DIR"
+# for deb in $LAST_BUILT_DEBS; do
+#    if [[ $deb == *aarch64.deb ]]; then
+#       cp -f "$deb" "${DOWNLOADABLE_PREFIX}_aarch64.deb"
+#    elif [[ $deb == *arm.deb ]]; then
+#       cp -f "$deb" "${DOWNLOADABLE_PREFIX}_arm.deb"
+#    elif [[ $deb == *i686.deb ]]; then
+#       cp -f "$deb" "${DOWNLOADABLE_PREFIX}_i686.deb"
+#    elif [[ $deb == *x86_64.deb ]]; then
+#       cp -f "$deb" "${DOWNLOADABLE_PREFIX}_x86_64.deb"
+#    fi
+# done
