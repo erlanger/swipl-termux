@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 ARCH=`dpkg --print-architecture`
-VER="8.1.0-1"
+VER="8.1.2-1"
 SWIPL_DEB="swi-prolog_${VER}_${ARCH}.deb"
 UUID_DEB="ossp-uuid_1.6.2-2_${ARCH}.deb"
 TMP=`pwd`/deb.$$

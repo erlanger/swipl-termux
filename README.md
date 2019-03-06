@@ -1,6 +1,7 @@
 # Update!
 
-The sparkling new major release version 8.1.0
+The sparkling new release version 8.1.2, with
+updated and faster tabling
 is available now for all termux architectures:
 `arm`, `aarch64`, `i686` and `x86_64`.
 
