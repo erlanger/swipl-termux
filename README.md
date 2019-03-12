@@ -64,9 +64,8 @@ You should now have the  `.deb` files in the `debs` directory.
 
 Hopefully this repository will be deleted when the  build of
 SWI-Prolog for Android is officially added to the termux package
-repositories. Bear in mind I am just in testing right now (and there
-are a few issues), but hopefully things will move quickly.
-
+repositories. But it will be kept if termux decides to drop support for
+older (5.0+) android devices.
 
 Working Packages
 ----------------
