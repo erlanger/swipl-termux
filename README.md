@@ -1,5 +1,15 @@
 # Update!
 
+SWI-Prolog can now be installed directly from the termux official repositories.
+
+Run this on the termux terminal:
+```sh
+pkg install swi-prolog
+```
+
+
+# Older news
+
 The sparkling new release version 8.1.3, with
 updated and faster tabling
 is available now for all termux architectures:
