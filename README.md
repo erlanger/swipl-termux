@@ -54,18 +54,20 @@ The [install script.](https://raw.githubusercontent.com/erlanger/swipl-termux/ma
 
 SWI-Prolog for android is built with the docker file used by `termux` to build packages.
 
-The [termux-packages repository](https://github.com/erlanger/termux-packages/tree/swi-prolog/packages/swi-prolog) contains the patches and scripts to build the SWI-Prolog `deb` file for Android.
 
 The docker file will be downloaded automatically. SWI-Prolog library dependencies  will also be downloaded automatically into the docker container.
 
+Of course, you need to have *docker* and *git* installed.
+
 To build the deb files yourself, do the following:
 ```sh
-git clone -b swi-prolog https://github.com/erlanger/termux-packages
+docker pull termux/package-builder
+git clone https://github.com/termux/termux-packages
 cd termux-packages
 ./scripts/run-docker.sh ./build-package.sh -a <arch> -f swi-prolog
 ```
 
-Where `<arch>` is one of `arm`, `aarch64`, `i686` and `x86_64`.
+Where `<arch>` is one of `arm`, `aarch64`, `i686` or `x86_64`.
 
 You should now have the  `.deb` files in the `debs` directory.
 
